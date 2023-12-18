@@ -1,4 +1,4 @@
-var sentences = [
+/*var sentences = [
   "I Love you",
   "I miss you", 
   "Soon we can cuddle again", 
