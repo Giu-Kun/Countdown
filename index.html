@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dark Countdown Timer with Random Sentence</title>
+  <title>I miss you so so much</title>
  <style>
     body {
       font-family: Arial, sans-serif;
@@ -74,7 +74,7 @@
 </head>
 <body>
 
-  <h1>Countdown Timer</h1>
+  <h1>We see each other again soon</h1>
   <p id="countdown"></p>
   <p id="random-sentence"></p>
 
@@ -84,8 +84,8 @@
   <!-- Settings Modal -->
   <div id="settings-modal">
     <div class="modal-content">
-      <h2>Custom Countdown Settings</h2>
-      <label for="custom-date-time">Custom Date and Time:</label>
+      <h2>Change Countdown</h2>
+      <label for="custom-date-time">Date and Time:</label>
       <input type="datetime-local" id="custom-date-time">
       <br>
       <button id="save-button">Save</button>
@@ -146,7 +146,7 @@
       var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
       // Display the countdown
-      document.getElementById("countdown").innerHTML = "Countdown: " + days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+      document.getElementById("countdown").innerHTML = "Only " + days + "d " + hours + "h " + minutes + "m " + seconds + "s" + "left";
 
       // Check if the countdown has reached zero
       if (timeRemaining <= 0) {
