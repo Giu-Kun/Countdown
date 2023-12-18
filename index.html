@@ -103,7 +103,6 @@
   // Update the countdown every 1 second
   var countdownInterval = setInterval(updateCountdown, 1000);
 
-  // Display a random sentence
   displayRandomSentence();
 
   // Settings Button Click Event
@@ -159,6 +158,11 @@
   function displayRandomSentence() {
     var randomSentenceIndex = Math.floor(Math.random() * sentences.length);
     document.getElementById("random-sentence").innerHTML = sentences[randomSentenceIndex];
+  }
+
+  if (seconds <= 1 ) {
+  // Display a random sentence
+  displayRandomSentence();
   }
 </script>
 
