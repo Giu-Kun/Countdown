@@ -1,172 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I miss you so so much</title>
- <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 50px;
-      background-color: #333;
-      color: #fff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I miss you so much</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #333;
+            color: #fff;
+        }
 
-    h1 {
-      color: #bbb;
-    }
+        h1 {
+            color: #bbb;
+        }
 
-    #countdown {
-      font-size: 24px;
-      color: #ddd;
-      margin-top: 20px;
-    }
+        #countdown,
+        #random-sentence {
+            font-size: 18px;
+            margin-top: 20px;
+        }
 
-    #random-sentence {
-      font-size: 18px;
-      margin-top: 20px;
-    }
+        #settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
 
-    #settings-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 1;
-    }
+        .modal-content {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            color: #fff;
+            text-align: left;
+        }
 
-    .modal-content {
-      background-color: #222;
-      padding: 20px;
-      border-radius: 10px;
-      color: #fff;
-      text-align: left;
-    }
+        #custom-date-time {
+            margin-bottom: 10px;
+        }
 
-    #custom-date-time {
-      margin-bottom: 10px;
-    }
+        #save-button,
+        #settings-button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
 
-    #save-button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #settings-button {
-      background-color: #3498db;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+        #save-button {
+            background-color: #4CAF50;
+        }
+    </style>
 </head>
+
 <body>
 
-  <h1>We see each other again soon <3</h1>
-  <p id="countdown"></p>
-  <p id="random-sentence"></p>
+    <h1>We see each other again soon <3</h1>
+    <p id="countdown"></p>
+    <p id="random-sentence"></p>
 
-  <!-- Settings Button -->
-  <button id="settings-button">Settings</button>
+    <!-- Settings Button -->
+    <button id="settings-button">Settings</button>
 
-  <!-- Settings Modal -->
-  <div id="settings-modal">
-    <div class="modal-content">
-      <h2>Change Countdown</h2>
-      <label for="custom-date-time">Date and Time:</label>
-      <input type="datetime-local" id="custom-date-time">
-      <br>
-      <button id="save-button">Save</button>
+    <!-- Settings Modal -->
+    <div id="settings-modal">
+        <div class="modal-content">
+            <h2>Change Countdown</h2>
+            <label for="custom-date-time">Date and Time:</label>
+            <input type="datetime-local" id="custom-date-time">
+            <br>
+            <button id="save-button">Save</button>
+        </div>
     </div>
-  </div>
 
- <!-- Include the external sentences file -->
-<script src="sentences.js"></script>
+    <!-- Include the external sentences file -->
+    <script src="sentences.js"></script>
 
-<!-- Script for countdown and settings functionality -->
-<script>
-  // Set the initial target date for the countdown
-  var finalCountdown = new Date("December 25, 2023 11:57:00").getTime();
+    <!-- Script for countdown and settings functionality -->
+    <script>
+        var finalCountdown = new Date("December 25, 2023 11:57:00").getTime();
+        var countdownInterval = setInterval(updateCountdown, 1000);
+        displayRandomSentence();
 
-  // Update the countdown every 1 second
-  var countdownInterval = setInterval(updateCountdown, 1000);
+        document.getElementById("settings-button").addEventListener("click", function () {
+            document.getElementById("settings-modal").style.display = "flex";
+        });
 
-  displayRandomSentence();
+        document.getElementById("save-button").addEventListener("click", function () {
+            var customDateTime = new Date(document.getElementById("custom-date-time").value).getTime();
+            if (!isNaN(customDateTime)) {
+                finalCountdown = customDateTime;
+                updateCountdown();
+                document.getElementById("settings-modal").style.display = "none";
+            } else {
+                alert("Invalid date and time. Please try again.");
+            }
+        });
 
-  // Settings Button Click Event
-  document.getElementById("settings-button").addEventListener("click", function() {
-    document.getElementById("settings-modal").style.display = "flex";
-  });
+        function updateCountdown() {
+            var currentDate = new Date().getTime();
+            var timeRemaining = finalCountdown - currentDate;
+            var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-  // Save Button Click Event
-  document.getElementById("save-button").addEventListener("click", function() {
-    // Get the custom date and time from the input
-    var customDateTime = new Date(document.getElementById("custom-date-time").value).getTime();
+            document.getElementById("countdown").innerHTML = `Only ${days}d ${hours}h ${minutes}m ${seconds}s left`;
 
-    // Check if the input is a valid date
-    if (!isNaN(customDateTime)) {
-      // Update the target date for the countdown
-      finalCountdown = customDateTime;
+            if (timeRemaining <= 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "Countdown expired!";
+            }
 
-      // Update the countdown display
-      updateCountdown();
+            if (seconds === 1) {
+                displayRandomSentence();
+            }
+        }
 
-      // Close the modal
-      document.getElementById("settings-modal").style.display = "none";
-    } else {
-      alert("Invalid date and time. Please try again.");
-    }
-  });
-
-  // Function to update the countdown
-  function updateCountdown() {
-    // Get the current date and time
-    var currentDate = new Date().getTime();
-
-    // Calculate the remaining time in milliseconds
-    var timeRemaining = finalCountdown - currentDate;
-
-    // Calculate days, hours, minutes, and seconds
-    var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-    // Display the countdown
-    document.getElementById("countdown").innerHTML = "Only " + days + "d " + hours + "h " + minutes + "m " + seconds + "s" + " left";
-
-    // Check if the countdown has reached zero
-    if (timeRemaining <= 0) {
-      clearInterval(countdownInterval);
-      document.getElementById("countdown").innerHTML = "Countdown expired!";
-  
-    // Check if seconds reach 1 to display a random sentence
-  if (seconds === 1) {
-    displayRandomSentence();
-    }
-  }
-
-  // Function to display a random sentence
-  function displayRandomSentence() {
-    var randomSentenceIndex = Math.floor(Math.random() * sentences.length);
-    document.getElementById("random-sentence").innerHTML = sentences[randomSentenceIndex];
-  }
-
- 
-</script>
-
-
+        function displayRandomSentence() {
+            var randomSentenceIndex = Math.floor(Math.random() * sentences.length);
+            document.getElementById("random-sentence").innerHTML = sentences[randomSentenceIndex];
+        }
+    </script>
 </body>
+
 </html>
