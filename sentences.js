@@ -37,5 +37,4 @@ var sentences = [
   "You are the melody in the soundtrack of my life.",
   "With you, every day feels like a new chapter of a love story.",
   "Our love is a masterpiece, painted with the colors of passion and affection.",
-  "You are the missing piece that completes the puzzle of my heart."
 ];
