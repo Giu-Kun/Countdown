@@ -151,6 +151,10 @@
     if (timeRemaining <= 0) {
       clearInterval(countdownInterval);
       document.getElementById("countdown").innerHTML = "Countdown expired!";
+  
+    // Check if seconds reach 1 to display a random sentence
+  if (seconds === 1) {
+    displayRandomSentence();
     }
   }
 
